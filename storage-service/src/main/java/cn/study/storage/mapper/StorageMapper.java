@@ -11,6 +11,14 @@ import org.apache.ibatis.annotations.Update;
  * @Time 3:33 下午
  */
 public interface StorageMapper extends BaseMapper<Storage> {
+
+    /**
+     * 扣除存储数量
+     *
+     * @param commodityCode 商品编码
+     * @param count         商品库存
+     * @return 影响行数
+     */
     @Update("update storage_tbl set `count` = `count` - #{count} where commodity_code = #{code}")
     int deduct(@Param("code") String commodityCode, @Param("count") int count);
 }

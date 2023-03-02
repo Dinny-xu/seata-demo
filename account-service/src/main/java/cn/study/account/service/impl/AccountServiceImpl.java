@@ -22,7 +22,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = RuntimeException.class)
     public void debit(String userId, int money) {
         log.info("开始扣款");
         try {

@@ -9,6 +9,7 @@ import feign.FeignException;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author dinny-xu
@@ -29,9 +30,14 @@ public class OrderServiceImpl implements OrderService {
         this.orderMapper = orderMapper;
     }
 
+    /**
+     *
+     * @param order 订单信息
+     * @return orderId
+     */
     @Override
-//    @Transactional
-    @GlobalTransactional
+    @Transactional(rollbackFor = RuntimeException.class)
+//    @GlobalTransactional
     public Long create(Order order) {
         // 创建订单
         orderMapper.insert(order);

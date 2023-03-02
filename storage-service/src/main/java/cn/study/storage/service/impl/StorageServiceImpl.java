@@ -19,8 +19,14 @@ public class StorageServiceImpl implements StorageService {
     @Autowired
     private StorageMapper storageMapper;
 
-    @Transactional
+    /**
+     * 扣除存储数量
+     *
+     * @param commodityCode 商品编码
+     * @param count         商品库存
+     */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deduct(String commodityCode, int count) {
         log.info("开始扣减库存");
         try {
